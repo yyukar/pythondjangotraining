@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+{% load static %}
+{% block baslik %} Yeni üye ekle {% endblock %}
+{% block content %}
+ <form class="row g-3 pt-4" method="post" action="login" >
+ {% csrf_token %}
+ <div class="row justify-content-center">
+ <div class="col-5">
+ <div class="col-12 pt-2">
+ <label for="username" class="form-label">Kullanıcı Adı</label>
+ <input type="text" class="form-control" id="username" 
+name="username">
+ </div>
+ <div class="col-12 pt-2" >
+ <label for="password" class="form-label">Şifre</label>
+ <input type="password" class="form-control" id="password" 
+name="password">
+ </div>
+ <div class="col-12 pt-3">
+ <button type="submit" class="btn btn-primary">Giriş</button>
+ </div>
+ {% if login == 'Hata' %}
+ <div class="row pt-3" style="padding-left:10px;padding-rigth:10px">
+ <div class="alert alert-danger d-flex align-items-center" 
+role="alert">
+ <img src="{% static 'danger.png' %}" width="24px">
+ <div style="padding-left:5px">
+ Kullanıcı adı veya şifre yanlış!
+ </div>
+ </div>
+ </div>
+ {% endif %}
+ </div>
+ </div>
+ </form>
+{% endblock %}

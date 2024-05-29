@@ -1,0 +1,80 @@
+{% extends "master.html" %}
+{% load static %}
+{% block baslik %} Yeni üye ekle {% endblock %}
+{% block content %}
+<div class="container py-5">
+  
+  <h1>yeni üye ekleme</h1>
+  
+  
+<form class="row g-3 pt-4" method="post" action="yeniUye" enctype="multipart/form-data">
+ 
+  {% csrf_token %}
+
+   <div class="col-md-6">
+   <label for="uyeno" class="form-label">Üye No</label>
+   <input type="number" class="form-control" id="uyeno" name="uyeno">
+   </div>
+ <div class="col-md-6">
+ <label for="adi" class="form-label">Adı</label>
+ <input type="text" class="form-control" id="adi" name="adi">
+ </div> 
+ <div class="col-md-6">
+ <label for="soyadi" class="form-label">Soyadı</label>
+ <input type="text" class="form-control" id="soyadi" name="soyadi">
+ </div>
+   <div class="col-md-6">
+   <label for="seviyesi" class="form-label">Seviye</label>
+   <input type="text" class="form-control" id="seviyesi" name="seviyesi">
+   </div>
+    <div class="col-md-6">
+     <label for="telefonu" class="form-label">Telefon</label>
+     <input type="number" class="form-control" id="telefonu" name="telefonu">
+     </div>
+  <div class="col-md-6">
+     <label for="tipi" class="form-label">Vücut Tipi</label>
+     <input type="text" class="form-control" id="tipi" name="tipi">
+     </div>
+  <div class="col-md-6">
+   <label for="formFile" class="form-label">Üye Profil Fotoğrafı:</label>
+   <input class="form-control" type="file" id="formFile" name="profil">
+  </div>
+  <div class="col-md-6">
+    <label for= "formCV" class="form-label">Üye CV:</label>
+    <input class="form-control" type="file" id="formCV" name="cv">
+  </div>
+ <div class="col-12">
+   <h5>Lütfen cv içerisine  ortopedik ameliyatlar ve hastalıklarınızı ekleyiniz!</h5>
+ <button type="submit" class="btn btn-secondary">KAYDET</button>
+ </div>
+  
+ </form>
+  </div>
+{% if yeniKayit == "True" %}
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Tebrikler!</h4>
+  <p>Yeni kayıt başarıyla eklendi.</p>
+  <hr>
+  <p class="mb-0">Yeni kayıt başarıyla eklendi.</p>
+</div>
+{% endif %}
+
+{% for hata in hatalistesi %}
+ {% if forloop.counter == 1 %}
+ <div class="row pt-3" style="padding-left:10px;paddingrigth:10px">
+ {% else %}
+<div class="row pt-1" style="padding-left:10px;paddingrigth:10px">
+ {% endif %}
+ <div class="alert alert-danger d-flex align-items-center" 
+role="alert">
+ <img src="" width="24px">
+ <div style="padding-left:5px">
+ {{ hata }}
+ </div>
+ </div>
+ </div>
+
+
+{% endfor %}
+   
+{% endblock %}

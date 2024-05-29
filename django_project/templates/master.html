@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ipsum</title>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% load static %}
+</head>
+  <body>
+    <div class="container-fluid pt-5">
+    <!--navbar start -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="{% static 'ipsumLogo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+          Ipsum
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/gelisimTakip">Aramıza katılın!</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active " href="/vucutTip">Vücut Tipleri</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">MB0061</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">2000003356</a>
+            </li>
+          </ul>
+          {% if user.is_authenticated %}
+           <span class="navbar-text me-4">
+           <a href="#"> Hoşgeldin, {{user.username}}</a>
+           </span>
+           <span class="navbar-text me-4">
+           <a href="../logout">Çıkış Yap</a>
+           </span>
+          {% else %}
+           <span class="navbar-text me-4">
+           <a href="../login">Giriş Yap</a>
+          </span>
+           <span class="navbar-text me-4">
+           <a href="../register">Kayıt Ol</a>
+           </span>
+          {% endif %}
+          <!--search bar olabilir -->
+        </div>
+      </div>
+    </nav>
+    <!--navbar end -->
+      </div>
+    {% block content %}
+    {% endblock %}
+    <!-- footer - start -->
+      <footer class="container-fluid bg-dark text-light py-2 px-5 ">
+      <div class="row">
+        <div class="col-12 col-md">
+          <a class="navbar-brand ml-4" href="#">
+            <img src="{% static 'ipsumLogo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Ipsum
+          </a>
+
+          <small class="d-block mt-2 ">For better health. For better life.</small>
+          <small class="d-block mt-2 ">© All rights reserved</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Şirket</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Yazılar</a></li>
+            <li><a class="text-muted" href="#">Kariyer</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Ürünler</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Lorem Ipsum</a></li>
+            <li><a class="text-muted" href="#">Dolar Ipsum</a></li>
+            <li><a class="text-muted" href="#">Sit Ipsum</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Yardım</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Destek Merkezi</a></li>
+            <li><a class="text-muted" href="#">Gizlilik Politikası</a></li>
+            <li><a class="text-muted" href="#">Kullanım Şartları</a></li>
+            <li><a class="text-muted" href="#">Bize Ulaş</a></li>
+          </ul>
+        </div>
+      </div>
+      </footer>
+      <!-- footer - end -->
+    </body>
+    </html>

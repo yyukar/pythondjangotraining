@@ -1,0 +1,46 @@
+{% extends "master.html" %}
+{% load static %}
+{% block baslik %} detay {% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1>detay</h1>
+<form class="row g-3 pt-4" method="post" action="">
+  {% csrf_token %}
+  <div class = "col-md-6 ">
+    <img src="{{uye.pp}}" height="200px">
+  </div>
+  <div class = "col-md-6 ">
+    <a href="{{uye.cv}}" target="_blank">
+      <img src="{% static 'cv.jpg' %}" height="150px">
+    </a>
+  </div>
+   <div class="col-md-6">
+   <label for="uyeno" class="form-label">Üye No</label>
+   <input type="number" class="form-control" id="uyeno" value ="{{uye.uyeNo}}" readonly>
+   </div>
+ <div class="col-md-6">
+ <label for="adi" class="form-label">Adı</label>
+ <input type="text" class="form-control" id="adi" value ="{{uye.ad}}" readonly>
+ </div> 
+ <div class="col-md-6">
+ <label for="soyadi" class="form-label">Soyadı</label>
+ <input type="text" class="form-control" id="soyadi" value ="{{uye.soyad}}" readonly>
+ </div>
+   <div class="col-md-6">
+   <label for="seviyesi" class="form-label">Seviye</label>
+   <input type="text" class="form-control" id="seviyesi" value ="{{uye.seviye}}" readonly>
+   </div>
+    <div class="col-md-6">
+     <label for="telefonu" class="form-label">Telefon</label>
+     <input type="number" class="form-control" id="telefonu" value ="{{uye.telefon}}" readonly>
+     </div>
+  <div class="col-md-6">
+     <label for="tipi" class="form-label">Vücut Tipi</label>
+     <input type="text" class="form-control" id="tipi" value ="{% for vtip in uye.vtip.all %}{{vtip.tip }}{% endfor %}" readonly>
+     </div>
+ <div class="col-12">
+   <h5>Lütfen cv içerisine  ortopedik ameliyatlar ve hastalıklarınızı ekleyiniz!</h5>
+ </div>
+  </div>
+ </form>
+{% endblock %}

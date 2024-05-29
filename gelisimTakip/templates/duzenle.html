@@ -1,0 +1,77 @@
+{% extends "master.html" %}
+{% load static %}
+{% block baslik %} duzenle {% endblock %}
+{% block content %}
+<div class="container py-5">
+
+  <h1>duzenle</h1>
+
+
+<form class="row g-3 pt-4" method="post" action="../duzenle/{{uye.id}}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class = "col-md-6 ">
+    <img src="{{uye.pp}}" height="200px">
+  </div>
+  <div class = "col-md-6 ">
+    <a href="{{uye.cv}}" target="_blank">
+      <img src="{% static 'cv.jpg' %}" height="150px">
+    </a>
+  </div>
+  <div class="col-md-6">
+   <label for="formFile" class="form-label">Yeni Profil Fotoğrafı:</label>
+   <input class="form-control" type="file" id="formFile" name="profil">
+  </div>
+  <div class="col-md-6">
+    <label for= "formCV" class="form-label">Üye CV:</label>
+    <input class="form-control" type="file" id="formCV" name="cv">
+  </div>
+   <div class="col-md-6">
+   <label for="uyeno" class="form-label">Üye No</label>
+   <input type="number" class="form-control" id="uyeno" name="uyeno" value ="{{uye.uyeNo}}" >
+   </div>
+ <div class="col-md-6">
+ <label for="adi" class="form-label">Adı</label>
+ <input type="text" class="form-control" id="adi" name="adi" value ="{{uye.ad}}" >
+ </div> 
+ <div class="col-md-6">
+ <label for="soyadi" class="form-label">Soyadı</label>
+ <input type="text" class="form-control" id="soyadi" name="soyadi" value ="{{uye.soyad}}" >
+ </div>
+   <div class="col-md-6">
+   <label for="seviyesi" class="form-label">Seviye</label>
+   <input type="text" class="form-control" id="seviyesi" name="seviyesi" value ="{{uye.seviye}}" >
+   </div>
+    <div class="col-md-6">
+     <label for="telefonu" class="form-label">Telefon</label>
+     <input type="number" class="form-control" id="telefonu" name="telefonu" value ="{{uye.telefon}}" >
+     </div>
+  <div class="col-md-6">
+     <label for="tipi" class="form-label">Vücut Tipi</label>
+     <input type="text" class="form-control" id="tipi" value = "{% for vtip in uye.vtip.all %}{{vtip.tip }}{% endfor %}" readonly>
+     </div>
+ <div class="col-12">
+   <h5>Lütfen cv içerisine  ortopedik ameliyatlar ve hastalıklarınızı ekleyiniz!</h5>
+ </div>
+  <div class="col-12">
+   <button type="submit" class="btn btn-secondary"> GÜNCELLE
+  </button>
+   </div>
+  </div>
+ </form>
+
+  {% if guncellendimi == "True" %}
+   <div class="row pt-4" style="padding-left:10px;paddingrigth:10px">
+   <div class="alert alert-success d-flex align-items-center" 
+  role="alert">
+   <img src="" width="24px">
+   <div style="padding-left:5px">
+   Kayıt başarıyla güncellendi.
+   </div>
+   </div>
+   </div>
+    
+   {% endif %}
+
+
+
+{% endblock %}

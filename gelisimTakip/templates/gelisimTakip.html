@@ -1,0 +1,151 @@
+ {% extends "master.html" %}
+  {% load static %}
+  {% block baslik %} ipsum {% endblock %}
+  {% block content %}
+  
+
+
+  <div class="container py-5 my-5">
+  <div class="row"><!-- row - start -->
+    <div class="col-sm-6"><!-- tip - start -->
+      <h4>Neden bizimle gelişiminizi takip etmelisiniz?</h4>
+      <ul>
+        <br>
+        <li> <h5>Kişiselleştirilmiş Antrenman Programları</h5></li>
+        <li><h5>Profesyonel Danışmanlık</h5></li>
+        <li><h5>İzleme ve Değerlendirme</h5></li>
+        <li><h5>Motivasyon ve Hesap Verebilirlik</h5></li>
+        <li><h5>Veri ve Analiz</h5></li>
+        <li><h5>Hedef Belirleme</h5></li>
+        <li><h5>Esneklik ve Erişilebilirlik</h5></li>
+        <li><h5>Topluluk ve Destek</h5></li>
+        <li><h5>Güvenilirlik ve İtibar</h5></li>
+        <li><h5>Fiyat ve Değer Dengesi</h5></li>
+        <li><h5>İlerleme Raporları</h5></li>
+        <li><h5>Nutrisyonel Danışmanlık</h5></li>
+        <br>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <!-- form - start -->
+    <img src="https://picsum.photos/id/352/800/600" class="img-fluid rounded" alt="">
+      <!-- form - end -->
+    </div><!-- tip - end -->
+    </div>
+  </div><!-- row - end -->
+
+<!--sablon baslangic-->
+<div class="container py-5 ">
+  <h2>Üyelerimiz</h2>
+  
+  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+    
+    <a href="yeniUye" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Yeni uye ekle</a>
+    <button type="button" class="btn btn-secondary">empty</button>
+    <div class="btn-group" role="group">
+      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+        Dropdown
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+        <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+        <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+      </ul>
+      <form class="d-flex p-2">
+      <input class="form-control me-2 " type="search" placeholder="Ara" aria-label="search">
+      <button class="btn btn-outline-success" type="submit">Ara</button>
+        </form>
+    </div>
+  </div>
+  <!--table start -->
+  <div class="table-responsive py-4">
+    <table class="table">
+      <caption>Listelendi.</caption>
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Adı</th>
+          <th scope="col">Soyadı</th>
+          <th scope="col">Seviye</th>
+          <th scope="col">Telefon</th>
+          <th scope="col">vucut tipi</th>
+          <th scope="col">Ödemeler</th>
+          <th scope="col">Detay</th>
+          <th scope="col">Düzenle</th>
+          <th scope="col">Sil</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+      {%for uye in uyelistesi %}  
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ uye.ad }}</td>
+          <td>{{ uye.soyad }}</td>
+          <td>{{ uye.seviye }}</td>
+          <td>{{ uye.telefon }}</td>
+          <td>
+            <strong>
+            {% for vtip in uye.vtip.all %}
+             {{vtip.tip | linebreaks}}
+             {% endfor %} 
+              </strong>
+          </td> 
+          <td style="max-width:100px">
+           <p>
+           <a class="btn btn-success" data-bs-toggle="collapse" 
+          href="#collapseExample{{uye.id}}" role="button">
+           ödeme detayları
+           </a>
+           </p>
+           <div class="collapse" id="collapseExample{{uye.id}}" >
+           <div class="card card-body">
+             {% for odeme in uye.odeme.all %}
+              {{odeme.tarih | linebreaks}}
+              {{odeme.miktar | linebreaks}}
+             {% endfor %}             
+           </div>
+           </div>
+          </td> 
+          
+          <td><a href="detay/{{ uye.id }}">
+          <img src="{% static 'detail.png' %}" width="25px">
+          </a>
+          </td>
+          <td><a href="duzenle/{{ uye.id }}">
+          <img src="{% static 'edit.png' %}" width="25px"> </a>
+          </td>          
+            <form class="row g-3 pt-4" method="post" action="../gelisimTakip/" >
+             {% csrf_token %}
+             <td><img src="{% static 'delete.png' %}" role="button" data-bs-toggle="modal" data-bs-target="#silModal{{uye.id}}" width="25px"></td>
+             <input class="d-none" name="sil" value="{{uye.id}}">
+             <!-- Modal -->
+             <div class="modal fade" id="silModal{{uye.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+             <div class="modal-dialog">
+             <div class="modal-content">
+             <div class="modal-header">
+             <h5 class="modal-title" id="staticBackdropLabel">Emin 
+            misiniz?</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+             {{uye.ad}} {{uye.soyad}} kaydını silmek istiyor musunuz?
+             </div>
+             <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hayır</button>
+             <button type="submit" class="btn btn-primary">Evet</button>
+             </div>
+             </div>
+             </div>
+             </div>
+            </form>          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--app1 end -->
+<!--sablon bitis-->
+
+    <!-- form end -->
+    {% endblock %}
